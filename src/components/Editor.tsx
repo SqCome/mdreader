@@ -26,8 +26,7 @@ import {
 } from "@codemirror/language";
 import { markdown } from "@codemirror/lang-markdown";
 import { highlightSelectionMatches, openSearchPanel, searchKeymap } from "@codemirror/search";
-import { autocompletion } from "@codemirror/autocomplete";
-import { closeBrackets } from "@codemirror/closebrackets";
+import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
 import { oneDark } from "@codemirror/theme-one-dark";
 
 /**
