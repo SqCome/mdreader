@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+src-tauri/target/
+src-tauri/Cargo.lock
+
+# Editor & OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# TypeScript buildinfo
+*.tsbuildinfo
+tsconfig.node.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# .mavis (agent plans & logs)
+.mavis/
+.opencode/

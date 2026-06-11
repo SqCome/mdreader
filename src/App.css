@@ -1,0 +1,321 @@
+/* MD Reader — layout & component styles.
+ *
+ * Organized top-to-bottom: layout primitives → toolbar → panes → status bar
+ * → toast. The github-markdown-css package provides base typography for
+ * `.markdown-body`; we only need layout and chrome here.
+ */
+
+/* ---- Layout primitives ---- */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.panes {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr;
+  gap: 1px;
+  background: #d0d7de;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ---- Toolbar ---- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border-bottom: 1px solid #d0d7de;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.toolbar-title {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.toolbar-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.toolbar button {
+  padding: 4px 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 4px;
+  background: #f6f8fa;
+  cursor: pointer;
+  font-size: 12px;
+  color: #1f2328;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.toolbar button:hover:not(:disabled) {
+  background: #eaeef2;
+  border-color: #afb8c1;
+}
+
+.toolbar button:active:not(:disabled) {
+  background: #d8dee4;
+}
+
+.toolbar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toolbar-sep {
+  width: 1px;
+  height: 20px;
+  background: #d0d7de;
+  margin: 0 4px;
+}
+
+.toolbar-filename {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+  color: #57606a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50vw;
+}
+
+.toolbar-filename.is-dirty {
+  color: #9a6700;
+}
+
+/* ---- Editor pane ---- */
+.editor-pane {
+  display: flex;
+  flex-direction: column;
+  background: #282c34; /* matches oneDark base */
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.editor-pane header {
+  padding: 6px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #abb2bf; /* matches oneDark foreground-muted */
+  background: #21252b; /* matches oneDark gutter */
+  border-bottom: 1px solid #181a1f;
+  flex-shrink: 0;
+}
+
+/* The CodeMirror editor mounts inside this container. It must fill the
+ * remaining vertical space inside .editor-pane and own its own scrollbar;
+ * CodeMirror handles internal scrolling via .cm-scroller. */
+.cm-container {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cm-container .cm-editor {
+  height: 100%;
+}
+
+.cm-container .cm-scroller {
+  overflow: auto;
+}
+
+/* ---- Outline pane ---- */
+.outline-pane {
+  display: flex;
+  flex-direction: column;
+  background: #f6f8fa;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-right: 1px solid #d0d7de;
+}
+
+.outline-header {
+  padding: 6px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #57606a;
+  background: #f6f8fa;
+  border-bottom: 1px solid #d0d7de;
+  flex-shrink: 0;
+}
+
+.outline-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.outline-empty {
+  padding: 12px;
+  font-size: 12px;
+  color: #9a9a9a;
+  font-style: italic;
+}
+
+.outline-item {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  width: 100%;
+  padding: 3px 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+  color: #57606a;
+  transition: background 0.1s, color 0.1s;
+  line-height: 1.4;
+}
+
+.outline-item:hover {
+  background: #eaeef2;
+  color: #1f2328;
+}
+
+.outline-level-1 { padding-left: 12px; font-weight: 600; font-size: 12px; }
+.outline-level-2 { padding-left: 24px; font-size: 11px; }
+.outline-level-3 { padding-left: 36px; font-size: 11px; }
+
+.outline-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #afb8c1;
+  flex-shrink: 0;
+  font-family: monospace;
+  min-width: 18px;
+}
+
+.outline-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.outline-active {
+  color: #0969da;
+  font-weight: 600;
+  background: #ddf4ff;
+}
+
+.outline-active:hover {
+  background: #ddf4ff;
+  color: #0550ae;
+}
+
+.outline-active .outline-badge {
+  color: #0969da;
+}
+
+
+.preview-pane {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.preview-pane header {
+  padding: 6px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #57606a;
+  background: #f6f8fa;
+  border-bottom: 1px solid #d0d7de;
+  flex-shrink: 0;
+}
+
+.preview-body {
+  flex: 1;
+  padding: 16px 24px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #1f2328;
+  max-width: 100%;
+  /* Independent scroll inside the preview. */
+  overflow: auto;
+  /* Reset the package default that constrains width. */
+  box-sizing: border-box;
+}
+
+/* ---- Status bar ---- */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 12px;
+  background: #f6f8fa;
+  border-top: 1px solid #d0d7de;
+  font-size: 11px;
+  color: #57606a;
+  flex-shrink: 0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+.status-segment {
+  white-space: nowrap;
+}
+
+.status-spacer {
+  flex: 1;
+}
+
+.status-dirty.is-dirty {
+  color: #9a6700;
+  font-weight: 600;
+}
+
+.status-dirty.is-clean {
+  color: #1a7f37;
+}
+
+.status-file {
+  color: #57606a;
+  max-width: 50vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- Status toast (transient messages) ---- */
+.status-toast {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  background: rgba(31, 35, 40, 0.92);
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  animation: toast-fade 4s ease-in-out forwards;
+  z-index: 10;
+}
+
+@keyframes toast-fade {
+  0%   { opacity: 0; transform: translate(-50%, 6px); }
+  10%  { opacity: 1; transform: translate(-50%, 0); }
+  85%  { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 6px); }
+}
